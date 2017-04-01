@@ -1,0 +1,12 @@
+li {
+    text-align: left;
+    margin: 10px;
+}
+li > button {
+    position: absolute;
+    right: 50px;
+    background: #74bbfb;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+}
