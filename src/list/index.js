@@ -7,7 +7,6 @@ class List extends React.Component {
         super(props);
         this.state = {
             documnet: false,
-            itemIndex: 0,
             data: [{
                 documentNumber: "2017/123/12",
                 text: "Orders for new cars",
@@ -28,9 +27,9 @@ class List extends React.Component {
     }
 
     itemClicked = index => {
-        this.setState({
-            itemIndex: index})
-        console.log(this.state)
+        const itemIndex = index;
+        let itemData = this.state.data[index];
+        console.log(this.state.data[index])
     }
     addNewItem = data => {
         const newData = this.state.data.slice();
