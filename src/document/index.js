@@ -8,9 +8,10 @@ class Document extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            documentNumber: '',
             text: 'Please place your thoughts .',
             date: '',
-            contractor: ['BMW', 'Motorola', 'Samsung', 'Apple']
+            contractor: ['BMW', 'Motorola', 'Samsung', 'Apple'],
         };
 
     }
@@ -22,27 +23,44 @@ class Document extends React.Component {
         this.setState({date: event.target.value});
     }
 
+    handleChangeNumber = (event) => {
+        this.setState({documentNumber: event.target.value});
+    }
 
+    onCancelClick = () => {
+        const {cancelClick} = this.props;
+        if (typeof cancelClick === 'function') {
+            cancelClick();
+        }
+    }
 
     handleSubmit = (event) => {
+        // const { documentNumber, text, date } = this.state;
+        const { onNewData } = this.props;
         event.preventDefault();
+        let jsonData = this.state
+        if (typeof onNewData === 'function') {
+            onNewData(jsonData);
+            this.onCancelClick();
+        }
+
     }
+
+
 
     render() {
         const { text, date, contractor } = this.state;
-        console.log(contractor[0])
         return (
             <div className="wrapper">
             <form onSubmit={this.handleSubmit}>
                 <label> Document number
-                    <input type="number"/>
+                    <input type="text" onChange={this.handleChangeNumber}/>
                 </label>
                 <label>
                     Please pick contractor:<br></br>
-                    {contractor[0]}<input type="checkbox" value={contractor[0]} />
-                    {contractor[1]}<input type="checkbox" value={contractor[1]} />
-                    {contractor[2]}<input type="checkbox" value={contractor[2]} />
-                    {contractor[3]}<input type="checkbox" value={contractor[3]} />
+                    <select>
+                        {contractor ? contractor.map( (event, index) => <option value={event[index]} key={index}>{event}</option> ) : '' }
+                    </select>
                 </label>
                 <label>
                     Document date:
@@ -53,7 +71,7 @@ class Document extends React.Component {
                     <textarea value={text} onChange={this.handleChangeText} />
                 </label>
                 <input type="submit" value="Submit" />
-                <input type="submit" value="Cancel" />
+                <input type="submit" value="Cancel" onClick={this.onCancelClick} />
             </form>
             </div>
         );
