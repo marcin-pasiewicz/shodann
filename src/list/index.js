@@ -9,6 +9,7 @@ class List extends React.Component {
         super(props);
         this.state = {
             documnet: false,
+            index: '',
             data: [{
                 documentNumber: "2017/123/12",
                 text: "Orders for new cars",
@@ -32,19 +33,32 @@ class List extends React.Component {
     itemClicked = index => {
         const itemIndex = index;
         itemData = this.state.data[index];
-        console.log(this.state.data[index])
-        this.showAddDocument()
+        console.log(this.state.data[index]);
+        this.setState({index})
+        this.showAddDocument();
+
     }
     addNewItem = data => {
         const newData = this.state.data.slice();
         newData.push(data);
         this.setState({data: newData});
+        delete this.state.data[this.state.index]
     }
 
+    onSort=()=> {
+        const { data } = this.state;
+
+        this.setState({
+            data: data.reverse()
+        })
+    }
 
     render() {
         const { data } =this.state;
         const itemList = (
+        <div>
+        <button onClick={this.onSort}>sort</button>
+
             <ul className="itemList">
                 <li><a id="nav-toggle" href="#"><span></span></a></li>
                 {data ? data.map( (event, index) =>
@@ -52,6 +66,7 @@ class List extends React.Component {
                         <button onClick={()=>{this.itemClicked(index)}}>Edit</button></li> ) : '' }
                         <button onClick={this.showAddDocument}>Add</button>
             </ul>
+        </div>
         )
 
         return (
