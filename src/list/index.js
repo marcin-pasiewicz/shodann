@@ -2,6 +2,8 @@ import React from 'react';
 import './index.css'
 import Document from '../document/index';
 
+let itemData;
+
 class List extends React.Component {
     constructor(props) {
         super(props);
@@ -20,6 +22,7 @@ class List extends React.Component {
             }],
 
         }
+
     }
 
     showAddDocument = () => {
@@ -28,8 +31,9 @@ class List extends React.Component {
 
     itemClicked = index => {
         const itemIndex = index;
-        let itemData = this.state.data[index];
+        itemData = this.state.data[index];
         console.log(this.state.data[index])
+        this.showAddDocument()
     }
     addNewItem = data => {
         const newData = this.state.data.slice();
@@ -53,6 +57,7 @@ class List extends React.Component {
                     { this.state.documnet ? <Document
                     cancelClick={this.showAddDocument}
                     onNewData={this.addNewItem}
+                    onEditData={itemData}
                 /> : itemList}
 
             </div>

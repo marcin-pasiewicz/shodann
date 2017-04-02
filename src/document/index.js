@@ -17,6 +17,17 @@ class Document extends React.Component {
 
     }
 
+    componentDidMount(){
+        const { onEditData }= this.props;
+        this.setState({
+            documentNumber: onEditData.documentNumber,
+            text: onEditData.text,
+            date: onEditData.date,
+            contractor: onEditData.constructor,
+        })
+        console.log(onEditData)
+    }
+
     handleChangeText = (event) => {
         this.setState({text: event.target.value});
     }
@@ -40,7 +51,6 @@ class Document extends React.Component {
     }
 
     handleSubmit = (event) => {
-        // const { documentNumber, text, date } = this.state;
         const { onNewData } = this.props;
         event.preventDefault();
         let jsonData = this.state
@@ -60,7 +70,7 @@ class Document extends React.Component {
             <div className="wrapper">
             <form onSubmit={this.handleSubmit}>
                 <label> Document number
-                    <input type="text" placeholder="YYYY/DDD/DD" onChange={this.handleChangeNumber}/>
+                    <input type="text" placeholder="YYYY/DDD/DD" value={this.state.documentNumber} onChange={this.handleChangeNumber}/>
                 </label>
                 <label>
                     Please pick contractor:<br></br>
