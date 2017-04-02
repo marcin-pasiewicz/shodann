@@ -19,12 +19,13 @@ class Document extends React.Component {
 
     componentDidMount(){
         const { onEditData }= this.props;
+        if(onEditData){
         this.setState({
             documentNumber: onEditData.documentNumber,
             text: onEditData.text,
             date: onEditData.date,
             contractor: onEditData.constructor,
-        })
+        })}
         console.log(onEditData)
     }
 
@@ -70,7 +71,7 @@ class Document extends React.Component {
             <div className="wrapper">
             <form onSubmit={this.handleSubmit}>
                 <label> Document number
-                    <input type="text" placeholder="YYYY/DDD/DD" value={this.state.documentNumber} onChange={this.handleChangeNumber}/>
+                    <input type="text" placeholder="YYYY/DDD/DD" pattern="(19[789]\d|20[01]\d).\d*.\d*" required value={this.state.documentNumber} onChange={this.handleChangeNumber}/>
                 </label>
                 <label>
                     Please pick contractor:<br></br>
