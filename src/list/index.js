@@ -57,10 +57,9 @@ class List extends React.Component {
         const { data } =this.state;
         const itemList = (
         <div>
-        <button onClick={this.onSort}>sort</button>
-
             <ul className="itemList">
                 <li><a id="nav-toggle" href="#"><span></span></a></li>
+                <li><button id="sort" onClick={this.onSort}>sort</button></li>
                 {data ? data.map( (event, index) =>
                     <li value={event.documentNumber} key={index}>{event.documentNumber}
                         <button onClick={()=>{this.itemClicked(index)}}>Edit</button></li> ) : '' }
