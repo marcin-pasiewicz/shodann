@@ -40,17 +40,20 @@ class List extends React.Component {
 
     render() {
         const { data } =this.state;
+        const itemList = (
+            <ul>
+                {data ? data.map( (event, index) => <li value={event.documentNumber} key={index}>{event.documentNumber} <button onClick={()=>{this.itemClicked(index)}}>Edit</button></li> ) : '' }
+
+                <button onClick={this.showAddDocument}>Add</button>
+            </ul>
+        )
 
         return (
             <div className="wrapper">
-                <ul>
-                    {data ? data.map( (event, index) => <li value={event.documentNumber} key={index}>{event.documentNumber} <button onClick={()=>{this.itemClicked(index)}}>Edit</button></li> ) : '' }
-                </ul>
-                <button onClick={this.showAddDocument}>Add</button>
-                { this.state.documnet ? <Document
+                    { this.state.documnet ? <Document
                     cancelClick={this.showAddDocument}
                     onNewData={this.addNewItem}
-                /> : null}
+                /> : itemList}
 
             </div>
         );

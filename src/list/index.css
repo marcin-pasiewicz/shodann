@@ -3,7 +3,7 @@ li {
     margin: 10px;
     list-style-type: none;
 }
-li > button {
+li > button, button {
     position: absolute;
     right: 50px;
     background: #74bbfb;

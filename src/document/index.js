@@ -11,7 +11,8 @@ class Document extends React.Component {
             documentNumber: '',
             text: 'Please place your thoughts .',
             date: '',
-            contractor: ['BMW', 'Motorola', 'Samsung', 'Apple'],
+            contractors: ['BMW', 'Motorola', 'Samsung', 'Apple'],
+            contractor: ''
         };
 
     }
@@ -25,6 +26,10 @@ class Document extends React.Component {
 
     handleChangeNumber = (event) => {
         this.setState({documentNumber: event.target.value});
+    }
+
+    handleChangeContractor = (event) => {
+        this.setState({contractor: event.target.value});
     }
 
     onCancelClick = () => {
@@ -42,6 +47,7 @@ class Document extends React.Component {
         if (typeof onNewData === 'function') {
             onNewData(jsonData);
             this.onCancelClick();
+            console.log(this.state)
         }
 
     }
@@ -49,17 +55,17 @@ class Document extends React.Component {
 
 
     render() {
-        const { text, date, contractor } = this.state;
+        const { text, date, contractors } = this.state;
         return (
             <div className="wrapper">
             <form onSubmit={this.handleSubmit}>
                 <label> Document number
-                    <input type="text" onChange={this.handleChangeNumber}/>
+                    <input type="text" placeholder="YYYY/DDD/DD" onChange={this.handleChangeNumber}/>
                 </label>
                 <label>
                     Please pick contractor:<br></br>
-                    <select>
-                        {contractor ? contractor.map( (event, index) => <option value={event[index]} key={index}>{event}</option> ) : '' }
+                    <select onChange={this.handleChangeContractor}>
+                        {contractors ? contractors.map( (event, index) => <option value={event} key={index}>{event}</option> ) : '' }
                     </select>
                 </label>
                 <label>
